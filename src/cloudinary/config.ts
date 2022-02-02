@@ -1,5 +1,5 @@
 export default {
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUD_API_KEY,
-  api_secret: process.env.CLOUD_API_SECRET
+  cloudName: process.env.CLOUD_NAME,
+  apiKey: process.env.CLOUD_API_KEY,
+  apiSecret: process.env.CLOUD_API_SECRET
 };

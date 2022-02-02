@@ -8,6 +8,8 @@
 # testing
 /coverage
 
+data
+
 # next.js
 /.next/
 /out/
@@ -36,3 +38,5 @@ yarn-error.log*
 *.db
 *.sqlite3
 *.sqlite
+
+.env
