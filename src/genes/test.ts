@@ -84,32 +84,39 @@ const genes = Object.values(genesIds);
 genes.forEach((gene) => {
   try {
     const t0 = new ZilGene(gene);
-    const t1 = parseGens(gene);
 
-    assert.equal(t0.aura, t1.aura);
-    assert.equal(t0.colorAura, t1.colorAura);
-    assert.equal(t0.body, t1.body);
-    assert.equal(t0.colorBody, t1.colorBody);
-    assert.equal(t0.colorClaws, t1.colorClaws);
-    assert.equal(t0.colorEyes, t1.colorEyes);
-    assert.equal(t0.colorHorns, t1.colorHorns);
-    assert.equal(t0.colorScales, t1.colorScales);
-    assert.equal(t0.colorScheme, t1.colorScheme);
-    assert.equal(t0.colorSpins, t1.colorSpins);
-    assert.equal(t0.colorSpots, t1.colorSpots);
-    assert.equal(t0.colorTail, t1.colorTail);
-    assert.equal(t0.colorWings, t1.colorWings);
-    assert.equal(t0.eyes, t1.eyes);
-    assert.equal(t0.head, t1.head);
-    assert.equal(t0.horns, t1.horns);
-    assert.equal(t0.mutagenImutable, t1.mutagenImutable);
-    assert.equal(t0.scales, t1.scales);
-    assert.equal(t0.spins, t1.spins);
-    assert.equal(t0.spots, t1.spots);
-    assert.equal(t0.tail, t1.tail);
-    assert.equal(t0.wings, t1.wings);
+    // assert.equal(t0.aura, t1.aura);
+    // assert.equal(t0.colorAura, t1.colorAura);
+    // assert.equal(t0.body, t1.body);
+    // assert.equal(t0.colorBody, t1.colorBody);
+    // assert.equal(t0.colorClaws, t1.colorClaws);
+    // assert.equal(t0.colorEyes, t1.colorEyes);
+    // assert.equal(t0.colorHorns, t1.colorHorns);
+    // assert.equal(t0.colorScales, t1.colorScales);
+    // assert.equal(t0.colorScheme, t1.colorScheme);
+    // assert.equal(t0.colorSpins, t1.colorSpins);
+    // assert.equal(t0.colorSpots, t1.colorSpots);
+    // assert.equal(t0.colorTail, t1.colorTail);
+    // assert.equal(t0.colorWings, t1.colorWings);
+    // assert.equal(t0.eyes, t1.eyes);
+    // assert.equal(t0.head, t1.head);
+    // assert.equal(t0.horns, t1.horns);
+    // assert.equal(t0.mutagenImutable, t1.mutagenImutable);
+    // assert.equal(t0.scales, t1.scales);
+    // assert.equal(t0.spins, t1.spins);
+    // assert.equal(t0.spots, t1.spots);
+    // assert.equal(t0.tail, t1.tail);
+    // assert.equal(t0.wings, t1.wings);
 
-    console.log(gene, true);
+    console.log(t0.colorBody);
+    console.log(t0.colorClaws);
+    console.log(t0.colorEyes);
+    console.log(t0.colorHorns);
+    console.log(t0.colorScales);
+    console.log(t0.colorSpins);
+    console.log(t0.colorSpots);
+    console.log(t0.colorTail);
+    console.log(t0.colorWings);
   } catch (err) {
     console.error(err);
   }

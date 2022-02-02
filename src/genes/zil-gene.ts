@@ -1,3 +1,5 @@
+import { getColor } from '../colors';
+
 export class ZilGene {
   #chain: number[];
 
@@ -10,7 +12,7 @@ export class ZilGene {
   }
 
   public get colorAura() {
-    return this.#chain[1];
+    return getColor(this.colorScheme, this.#chain[1]);
   }
 
   public get horns() {
@@ -18,7 +20,7 @@ export class ZilGene {
   }
 
   public get colorHorns() {
-    return this.#chain[3];
+    return getColor(this.colorScheme, this.#chain[3]);
   }
 
   public get scales() {
@@ -26,7 +28,7 @@ export class ZilGene {
   }
 
   public get colorScales() {
-    return this.#chain[5];
+    return getColor(this.colorScheme, this.#chain[5]);
   }
 
   public get spots() {
@@ -34,7 +36,7 @@ export class ZilGene {
   }
 
   public get colorSpots() {
-    return this.#chain[7];
+    return getColor(this.colorScheme, this.#chain[7]);
   }
 
   public get tail() {
@@ -42,7 +44,7 @@ export class ZilGene {
   }
 
   public get colorTail() {
-    return this.#chain[9];
+    return getColor(this.colorScheme, this.#chain[9]);
   }
 
   public get wings() {
@@ -50,7 +52,7 @@ export class ZilGene {
   }
 
   public get colorWings() {
-    return this.#chain[11];
+    return getColor(this.colorScheme, this.#chain[11]);
   }
 
   public get spins() {
@@ -58,7 +60,7 @@ export class ZilGene {
   }
 
   public get colorSpins() {
-    return this.#chain[13];
+    return getColor(this.colorScheme, this.#chain[13]);
   }
 
   public get body() {
@@ -66,7 +68,7 @@ export class ZilGene {
   }
 
   public get colorBody() {
-    return this.#chain[15];
+    return getColor(this.colorScheme, this.#chain[15]);
   }
 
   public get eyes() {
@@ -74,7 +76,7 @@ export class ZilGene {
   }
 
   public get colorEyes() {
-    return this.#chain[17];
+    return getColor(this.colorScheme, this.#chain[17]);
   }
 
   public get head() {
@@ -82,7 +84,7 @@ export class ZilGene {
   }
 
   public get colorClaws() {
-    return this.#chain[19];
+    return getColor(this.colorScheme, this.#chain[19]);
   }
 
   public get colorScheme() {
