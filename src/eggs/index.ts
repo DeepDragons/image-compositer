@@ -1,14 +1,21 @@
-import { eggAura } from './aura';
-import { eggBoddy } from './body';
-import { eggHorns } from './horns';
-import { eggScales } from './scales';
-import { eggSpots } from './spots';
-import { eggTails } from './tail';
-import { eggWings } from './wings';
-
+import { generateAnEgg } from './egg';
 import { Token } from '../token';
 
+import genes from '../genes/test.json';
 
-const t = new Token('77754714081715241349341128153', '33');
+const sleep = () => new Promise((resolve) => {
+  setTimeout(() => {
+    resolve(null);
+  }, 500);
+});
 
-eggWings(t);
+(async function(){
+  const genesList = Object.values(genes);
+  for (let index = 0; index < genesList.length; index++) {
+    const gene = genesList[index];
+    const t = new Token(gene, String(index));
+    generateAnEgg(t);
+
+    await sleep();
+  }
+}());

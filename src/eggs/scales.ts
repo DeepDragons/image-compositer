@@ -6,6 +6,10 @@ import rootConfig from '../configs/root';
 const DIR_NAME = 'scales';
 
 export async function eggScales(token: Token) {
+  if (token.genes.scales === 0) {
+    return;
+  }
+
   const mask = `${rootConfig.eggs}/${DIR_NAME}/${token.genes.scales}mask.png`;
   const shadow = `${rootConfig.eggs}/${DIR_NAME}/${token.genes.scales}shadow.png`;
   const color = token.genes.colorScales;

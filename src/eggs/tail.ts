@@ -6,6 +6,10 @@ import rootConfig from '../configs/root';
 const DIR_NAME = 'tails';
 
 export async function eggTails(token: Token) {
+  if (token.genes.tail === 0) {
+    return;
+  }
+
   const mask = `${rootConfig.eggs}/${DIR_NAME}/${token.genes.tail}mask.png`;
   const detail = `${rootConfig.eggs}/${DIR_NAME}/${token.genes.tail}detail.png`;
   const shadow = `${rootConfig.eggs}/${DIR_NAME}/${token.genes.tail}shadow.png`;

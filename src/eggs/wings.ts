@@ -6,6 +6,9 @@ import rootConfig from '../configs/root';
 const DIR_NAME = 'wings';
 
 export async function eggWings(token: Token) {
+  if (token.genes.wings === 0) {
+    return;
+  }
   const mask = `${rootConfig.eggs}/${DIR_NAME}/${token.genes.wings}mask.png`;
   const detail = `${rootConfig.eggs}/${DIR_NAME}/${token.genes.wings}detail.png`;
   const shadow = `${rootConfig.eggs}/${DIR_NAME}/${token.genes.wings}shadow.png`;
