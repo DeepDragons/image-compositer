@@ -43,6 +43,10 @@ export class ZilGene {
     return this.#chain[8];
   }
 
+  public get colorChunkTail() {
+    return getColor(this.colorScheme, this.#chain[15]);
+  }
+
   public get colorTail() {
     return getColor(this.colorScheme, this.#chain[9]);
   }
@@ -53,6 +57,10 @@ export class ZilGene {
 
   public get colorWings() {
     return getColor(this.colorScheme, this.#chain[11]);
+  }
+
+  public get colorChunkWings() {
+    return getColor(this.colorScheme, this.#chain[15]);
   }
 
   public get spins() {
