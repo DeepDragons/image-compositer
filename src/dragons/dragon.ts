@@ -2,9 +2,7 @@ import type { Token } from '../token';
 
 import sharp from 'sharp';
 import rootConfig from '../configs/root';
-import empty from '../configs/empty';
 
-import { dragonSpots } from './spots';
 import { dragonPaws } from './paws';
 import { dragonHead } from './head';
 import { dragonBody } from './body';

@@ -39,6 +39,8 @@ export async function generateAnEgg(token: Token) {
     });
   }
 
+  console.log(await sharp(empty.canvas, { raw: empty.raw }).metadata());
+
   await sharp(empty.canvas, { raw: empty.raw })
     .composite([...backGroundList, {
       input: body
