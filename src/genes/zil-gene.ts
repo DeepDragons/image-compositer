@@ -44,11 +44,11 @@ export class ZilGene {
   }
 
   public get colorChunkTail() {
-    return getColor(this.colorScheme, this.#chain[15]);
+    return getColor(this.colorScheme, this.#chain[11]);
   }
 
   public get colorTail() {
-    return getColor(this.colorScheme, this.#chain[9]);
+    return getColor(this.colorScheme, this.#chain[15]);
   }
 
   public get wings() {
@@ -60,19 +60,11 @@ export class ZilGene {
   }
 
   public get colorChunkWings() {
-    return getColor(this.colorScheme, this.#chain[15]);
-  }
-
-  public get spins() {
-    return this.#chain[12];
-  }
-
-  public get colorSpins() {
-    return getColor(this.colorScheme, this.#chain[13]);
+    return getColor(this.colorScheme, this.#chain[12]);
   }
 
   public get body() {
-    return this.#chain[14];
+    return this.#chain[14] >= 3 ? 2 : this.#chain[14];
   }
 
   public get colorBody() {
@@ -83,8 +75,12 @@ export class ZilGene {
     return this.#chain[16];
   }
 
+  public get paws() {
+    return 0;
+  }
+
   public get colorEyes() {
-    return getColor(this.colorScheme, this.#chain[17]);
+    return getColor(this.colorScheme, this.#chain[13]);
   }
 
   public get head() {
@@ -93,6 +89,10 @@ export class ZilGene {
 
   public get colorClaws() {
     return getColor(this.colorScheme, this.#chain[19]);
+  }
+
+  public get colorChunkEyes() {
+    return getColor(this.colorScheme, this.#chain[5]);
   }
 
   public get colorScheme() {

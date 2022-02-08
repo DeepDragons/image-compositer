@@ -13,9 +13,11 @@ export async function eggBody(token: Token) {
   const mask = `${rootConfig.eggs}/${DIR_NAME}/0mask.png`;
   const shadow = `${rootConfig.eggs}/${DIR_NAME}/0shadow.png`;
   const color = token.genes.colorBody;
-  const spots = await eggSpots(token);
-  const scales = await eggScales(token);
-  const horns = await eggHorns(token);
+  const [spots, scales, horns] = await Promise.all([
+    eggSpots(token),
+    eggScales(token),
+    eggHorns(token)
+  ]);
   // const out = `${rootConfig.tmp}/${rootConfig.namespase.eggs}/${token.id}.png`;
 
   const list = [];

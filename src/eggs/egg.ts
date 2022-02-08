@@ -11,10 +11,12 @@ import { eggWings } from './wings';
 
 export async function generateAnEgg(token: Token) {
   console.info("Start generate " + token.id);
-  const aura = await eggAura(token);
-  const body = await eggBody(token);
-  const tails = await eggTails(token);
-  const wings = await eggWings(token);
+  const [aura, body, tails, wings] = await Promise.all([
+    eggAura(token),
+    eggBody(token),
+    eggTails(token),
+    eggWings(token)
+  ]);
 
   const out = `${rootConfig.tmp}/${rootConfig.namespase.eggs}/${token.id}.png`;
   const backGroundList = [];

@@ -1,7 +1,7 @@
 import assert from 'assert';
 import colorScheme from './colors.json';
 
-const MAX_NUM_SCHEMA = 4;
+const MAX_NUM_SCHEMA = 5;
 
 export function getColor(commonColorScheme: number, numOfColorSchema: number) {
   assert(commonColorScheme <= 336, `Maximum length of color palette is ${colorScheme.length}`);
