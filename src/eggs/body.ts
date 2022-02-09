@@ -6,6 +6,7 @@ import rootConfig from '../configs/root';
 import { eggSpots } from './spots';
 import { eggScales } from './scales';
 import { eggHorns } from './horns';
+import { LINEAR } from '../configs/color';
 
 const DIR_NAME = 'bodies';
 
@@ -44,7 +45,10 @@ export async function eggBody(token: Token) {
     });
   }
 
-  const colored = await sharp(mask).tint(color).toBuffer();
+  const colored = await sharp(mask)
+    .linear(...LINEAR)
+    .tint(color)
+    .toBuffer();
 
   return await sharp(colored)
     .composite(list)

@@ -32,6 +32,9 @@ export async function dragon(token: Token) {
         input: wings
       });
     }
+    list.push({
+      input: pawsR
+    });
   } else if (wings) {
     instance = sharp(wings);
     list.push({
