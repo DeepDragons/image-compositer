@@ -1,4 +1,4 @@
-const root = process.env.DATA_ROOT;
+const root = __dirname;
 const data = `${process.env.DATA_ROOT}/data`;
 const namespase = {
   dragons: 'dragons',
