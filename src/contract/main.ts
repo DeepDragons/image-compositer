@@ -1,3 +1,5 @@
+import type { KeyValue } from 'types/rpc';
+
 import fetch from 'cross-fetch';
 import { RPCMethod } from '../configs/methods';
 import { HttpProvider } from '../lib/http-provider';
@@ -13,7 +15,17 @@ export class MainContract {
   #http = 'https://api.zilliqa.com';
   #provider = new HttpProvider();
 
-  public async totalSupply() {
+  public async getAllFaces(): Promise<KeyValue> {
+    const req = this.#provider.buildBody(RPCMethod.GetSmartContractSubState, [
+      this.#address,
+      MainContract.fields.tokenGenImage,
+      []
+    ]);
+    const [res] = await this.#send([req]);
+    return res.result[MainContract.fields.tokenGenImage];
+  }
+
+  public async totalSupply(): Promise<string> {
     const req = this.#provider.buildBody(RPCMethod.GetSmartContractSubState, [
       this.#address,
       MainContract.fields.totalSupply,
@@ -23,7 +35,7 @@ export class MainContract {
     return res.result[MainContract.fields.totalSupply];
   }
 
-  public async tokenCount() {
+  public async tokenCount(): Promise<string> {
     const req = this.#provider.buildBody(RPCMethod.GetSmartContractSubState, [
       this.#address,
       MainContract.fields.tokenCount,
@@ -44,5 +56,3 @@ export class MainContract {
     return res.json();
   }
 }
-
-new MainContract().tokenCount().then(console.log);
