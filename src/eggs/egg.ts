@@ -18,7 +18,7 @@ export async function generateAnEgg(token: Token) {
   ]);
 
   const out = `${rootConfig.tmp}/${rootConfig.namespase.eggs}/${token.id}.png`;
-  let backGroundList = [];
+  const backGroundList = [];
   let instance = sharp(body);
 
   if (aura) {
