@@ -10,13 +10,19 @@ import { Token } from './src/token';
 import genes from './src/genes/test.json';
 
 (async function(){
-  const genesList = Object.values(genes);
-  for (let index = 666; index < genesList.length; index++) {
-    const gene = genesList[index];
-    const t = new Token(gene, String(index));
-    await generateAnEgg(t);
-    await dragon(t);
+  // const ids = Object.keys(genes);
 
-    // break;
-  }
+  const t = new Token('77710302201321213223210245050', String(4533));
+  await generateAnEgg(t);
+  await dragon(t);
+
+  // for (let index = 4533; index < ids.length; index++) {
+  //   const key = ids[index];
+  //   const gene = genes[key];
+  //   const t = new Token(gene, String(index));
+  //   await generateAnEgg(t);
+  //   await dragon(t);
+
+  //   // break;
+  // }
 }());

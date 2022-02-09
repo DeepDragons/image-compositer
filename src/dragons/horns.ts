@@ -2,6 +2,7 @@ import type { Token } from '../token';
 
 import sharp from 'sharp';
 import rootConfig from '../configs/root';
+import { LINEAR } from '../configs/color';
 
 const DIR_NAME = 'horns';
 
@@ -18,10 +19,10 @@ export async function dragonHorns(token: Token) {
   // const out = `${rootConfig.tmp}/${rootConfig.namespase.dragons}/${token.id}.png`;
 
   return await Promise.all([
-    sharp(maskL).tint(colorMask).composite([{
+    sharp(maskL).linear(...LINEAR).tint(colorMask).composite([{
       input: shadowL
     }]).toBuffer(),
-    sharp(maskR).tint(colorMask).composite([{
+    sharp(maskR).linear(...LINEAR).tint(colorMask).composite([{
       input: shadowR
     }]).toBuffer()
   ]);

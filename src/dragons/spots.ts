@@ -2,6 +2,7 @@ import type { Token } from '../token';
 
 import sharp from 'sharp';
 import rootConfig from '../configs/root';
+import { LINEAR } from '../configs/color';
 
 const DIR_NAME = 'spots';
 
@@ -15,6 +16,7 @@ export async function dragonSpots(token: Token) {
   // const out = `${rootConfig.tmp}/${rootConfig.namespase.eggs}/${token.id}.png`;
 
   return await sharp(mask)
+    .linear(...LINEAR)
     .tint(color)
     // .toFile(out);
     .toBuffer();

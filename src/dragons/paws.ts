@@ -2,6 +2,7 @@ import type { Token } from '../token';
 
 import sharp from 'sharp';
 import rootConfig from '../configs/root';
+import { LINEAR } from '../configs/color';
 
 const DIR_NAME = 'paws';
 
@@ -17,12 +18,12 @@ export async function dragonPaws(token: Token) {
   const color = token.genes.colorBody;
   const detailColor = token.genes.colorClaws;
   const [clawL, clawR] = await Promise.all([
-    sharp(detailL).tint(detailColor).toBuffer(),
-    sharp(detailR).tint(detailColor).toBuffer(),
+    sharp(detailL).linear(...LINEAR).tint(detailColor).toBuffer(),
+    sharp(detailR).linear(...LINEAR).tint(detailColor).toBuffer(),
   ]);
 
   return await Promise.all([
-    sharp(maskL).tint(color).composite([
+    sharp(maskL).linear(...LINEAR).tint(color).composite([
       {
         input: clawL
       },
@@ -30,7 +31,7 @@ export async function dragonPaws(token: Token) {
         input: shadowL
       }
     ]).toBuffer(),
-    sharp(maskR).tint(color).composite([
+    sharp(maskR).linear(...LINEAR).tint(color).composite([
       {
         input: clawR
       },

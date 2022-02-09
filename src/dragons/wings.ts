@@ -2,6 +2,7 @@ import type { Token } from '../token';
 
 import sharp from 'sharp';
 import rootConfig from '../configs/root';
+import { LINEAR } from '../configs/color';
 
 const DIR_NAME = 'wings';
 
@@ -17,9 +18,11 @@ export async function dragonWings(token: Token) {
   // const out = `${rootConfig.tmp}/${rootConfig.namespase.dragons}/${token.id}.png`;
 
   const wingsMask = await sharp(mask)
+    .linear(...LINEAR)
     .tint(colorMask)
     .toBuffer();
   const wingsDetail = await sharp(detail)
+    .linear(...LINEAR)
     .tint(colorDetail)
     .toBuffer();
   return await sharp(wingsMask)

@@ -5,6 +5,7 @@ import rootConfig from '../configs/root';
 
 import { dragonEyes } from './eyes';
 import { dragonHorns } from './horns';
+import { LINEAR } from '../configs/color';
 
 const DIR_NAME = 'heads';
 
@@ -18,6 +19,7 @@ export async function dragonHead(token: Token) {
     dragonHorns(token)
   ]);
   const head = await sharp(mask)
+    .linear(...LINEAR)
     .tint(color)
     .composite([
       {

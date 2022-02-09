@@ -2,6 +2,7 @@ import type { Token } from '../token';
 
 import sharp from 'sharp';
 import rootConfig from '../configs/root';
+import { LINEAR } from '../configs/color';
 
 const DIR_NAME = 'aura';
 
@@ -17,11 +18,13 @@ export async function dragonAura(token: Token) {
 
   if (token.genes.aura === 1) {
     return await sharp(mask)
+    .linear(...LINEAR)
     .tint(color)
     .toBuffer();
   }
 
   return await sharp(mask)
+    .linear(...LINEAR)
     .tint(color)
     .composite([
       {

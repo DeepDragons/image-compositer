@@ -18,7 +18,7 @@ export async function eggBody(token: Token) {
     eggScales(token),
     eggHorns(token)
   ]);
-  // const out = `${rootConfig.tmp}/${rootConfig.namespase.eggs}/${token.id}.png`;
+  // const out = `${rootConfig.tmp}/${rootConfig.namespase.eggs}/${token.id}s.png`;
 
   const list = [];
 

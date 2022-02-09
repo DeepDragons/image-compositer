@@ -2,6 +2,7 @@ import type { Token } from '../token';
 
 import sharp from 'sharp';
 import rootConfig from '../configs/root';
+import { LINEAR } from '../configs/color';
 
 const DIR_NAME = 'eyes';
 
@@ -15,8 +16,8 @@ export async function dragonEyes(token: Token) {
   // const out = `${rootConfig.tmp}/${rootConfig.namespase.dragons}/${token.id}.png`;
 
   const [eyesMask, eyesDetail] = await Promise.all([
-    sharp(mask).tint(colorMask).toBuffer(),
-    sharp(detail).tint(colorDetail).toBuffer()
+    sharp(mask).linear(...LINEAR).tint(colorMask).toBuffer(),
+    sharp(detail).linear(...LINEAR).tint(colorDetail).toBuffer()
   ]);
 
   return await sharp(eyesMask)

@@ -2,6 +2,7 @@ import type { Token } from '../token';
 
 import sharp from 'sharp';
 import rootConfig from '../configs/root';
+import { LINEAR } from '../configs/color';
 
 const DIR_NAME = 'scales';
 
@@ -16,8 +17,9 @@ export async function eggScales(token: Token) {
   // const out = `${rootConfig.tmp}/${rootConfig.namespase.eggs}/${token.id}.png`;
 
   const colored = await sharp(mask)
-  .tint(color)
-  .toBuffer();
+    .linear(...LINEAR)
+    .tint(color)
+    .toBuffer();
 
   return await sharp(colored)
     .composite([

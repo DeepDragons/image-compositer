@@ -2,6 +2,7 @@ import type { Token } from '../token';
 
 import sharp from 'sharp';
 import rootConfig from '../configs/root';
+import { LINEAR } from '../configs/color';
 
 const DIR_NAME = 'tails';
 
@@ -18,9 +19,11 @@ export async function dragonTail(token: Token) {
   // const out = `${rootConfig.tmp}/${rootConfig.namespase.dragons}/${token.id}.png`;
 
   const tailMask = await sharp(mask)
+    .linear(...LINEAR)
     .tint(colorMask)
     .toBuffer();
   const tailDetail = await sharp(detail)
+    .linear(...LINEAR)
     .tint(colorDetail)
     .toBuffer();
   return await sharp(tailMask)

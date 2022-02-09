@@ -4,6 +4,7 @@ import sharp from 'sharp';
 import rootConfig from '../configs/root';
 
 import { dragonScales } from './scales';
+import { LINEAR } from '../configs/color';
 const DIR_NAME = 'bodies';
 
 export async function dragonBody(token: Token) {
@@ -28,6 +29,7 @@ export async function dragonBody(token: Token) {
   });
 
   const colored = await sharp(mask)
+    .linear(...LINEAR)
     .tint(color)
     .toBuffer();
 
