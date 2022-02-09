@@ -1,6 +1,7 @@
 export default {
-  entities: ['./src/models'],
-  entitiesTs: ['./src/models/**/*.ts'],
+  entities: [__dirname + '/src/models'],
+  entitiesTs: [__dirname + '/src/models/**/*.ts'],
   type: 'sqlite',
-  dbName: 'dev.sqlite'
+  dbName: 'dev.sqlite',
+  registerRequestContext: false
 };

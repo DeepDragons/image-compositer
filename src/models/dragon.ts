@@ -34,4 +34,9 @@ export class Dragon {
 
   @Property()
   dragonProcessing: boolean = false;
+
+  constructor(tokenId: string, face: string) {
+    this.tokenId = tokenId;
+    this.face = face;
+  }
 }
