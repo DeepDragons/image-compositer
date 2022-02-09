@@ -14,8 +14,11 @@ export async function eggHorns(token: Token) {
   const color = token.genes.colorHorns;
   // const out = `${rootConfig.tmp}/${rootConfig.namespase.eggs}/${token.id}.png`;
 
-  return await sharp(mask)
-    .tint(color)
+  const colored = await sharp(mask)
+  .tint(color)
+  .toBuffer();
+
+  return await sharp(colored)
     .composite([
       {
         input: shadow

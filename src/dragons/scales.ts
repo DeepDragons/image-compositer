@@ -13,7 +13,7 @@ export async function dragonScales(token: Token) {
   const mask = `${rootConfig.dragons}/${DIR_NAME}/${token.genes.scales}mask.png`;
   const shadow = `${rootConfig.dragons}/${DIR_NAME}/${token.genes.scales}shadow.png`;
   const color = token.genes.colorScales;
-  // const out = `${rootConfig.tmp}/${rootConfig.namespase.dragons}/${token.id}.png`;
+  // const out = `${rootConfig.tmp}/${rootConfig.namespase.dragons}/${token.id}f.png`;
 
   return await sharp(mask)
     .tint(color)

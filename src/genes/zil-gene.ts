@@ -28,7 +28,7 @@ export class ZilGene {
   }
 
   public get colorScales() {
-    return getColor(this.colorScheme, this.#chain[5]);
+    return getColor(this.colorScheme, this.#chain[3]);
   }
 
   public get spots() {

@@ -15,6 +15,12 @@ export async function dragonAura(token: Token) {
   // const out = `${rootConfig.tmp}/${rootConfig.namespase.dragons}/${token.id}.png`;
   const color = token.genes.colorAura;
 
+  if (token.genes.aura === 1) {
+    return await sharp(mask)
+    .tint(color)
+    .toBuffer();
+  }
+
   return await sharp(mask)
     .tint(color)
     .composite([

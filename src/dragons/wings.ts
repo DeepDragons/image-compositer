@@ -12,8 +12,8 @@ export async function dragonWings(token: Token) {
   const mask = `${rootConfig.dragons}/${DIR_NAME}/${token.genes.wings}mask.png`;
   const detail = `${rootConfig.dragons}/${DIR_NAME}/${token.genes.wings}detail.png`;
   const shadow = `${rootConfig.dragons}/${DIR_NAME}/${token.genes.wings}shadow.png`;
-  const colorMask = token.genes.colorWings;
-  const colorDetail = token.genes.colorChunkWings;
+  const colorMask = token.genes.colorChunkWings;
+  const colorDetail = token.genes.colorWings;
   // const out = `${rootConfig.tmp}/${rootConfig.namespase.dragons}/${token.id}.png`;
 
   const wingsMask = await sharp(mask)

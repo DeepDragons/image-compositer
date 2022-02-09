@@ -27,8 +27,11 @@ export async function dragonBody(token: Token) {
     input: shadow
   });
 
-  return await sharp(mask)
+  const colored = await sharp(mask)
     .tint(color)
+    .toBuffer();
+
+  return await sharp(colored)
     .composite(list)
     .toBuffer();
 }

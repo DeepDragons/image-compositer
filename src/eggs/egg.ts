@@ -2,7 +2,6 @@ import type { Token } from "../token";
 
 import sharp from 'sharp';
 import rootConfig from '../configs/root';
-import empty from '../configs/empty';
 
 import { eggAura } from './aura';
 import { eggBody } from './body';
@@ -19,33 +18,40 @@ export async function generateAnEgg(token: Token) {
   ]);
 
   const out = `${rootConfig.tmp}/${rootConfig.namespase.eggs}/${token.id}.png`;
-  const backGroundList = [];
+  let backGroundList = [];
+  let instance = sharp(body);
 
   if (aura) {
-    backGroundList.push({
-      input: aura
-    });
+    instance = sharp(aura);
+
+    if (wings) {
+      backGroundList.push({
+        input: wings
+      });
+    }
+  
+    if (tails) {
+      backGroundList.push({
+        input: tails
+      });
+    }
+  } else if (wings) {
+    instance = sharp(wings);
+
+    if (tails) {
+      backGroundList.push({
+        input: tails
+      });
+    }
+  } else if (tails) {
+    instance = sharp(tails);
+  } else {
+    return await instance.toFile(out);
   }
 
-  if (wings) {
-    backGroundList.push({
-      input: wings
-    });
-  }
-
-  if (tails) {
-    backGroundList.push({
-      input: tails
-    });
-  }
-
-  console.log(await sharp(empty.canvas, { raw: empty.raw }).metadata());
-
-  await sharp(empty.canvas, { raw: empty.raw })
+  return await instance
     .composite([...backGroundList, {
       input: body
     }])
     .toFile(out);
-
-  console.info(`End generate ${token.id}, File: ${out}`);
 }

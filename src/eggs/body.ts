@@ -44,8 +44,9 @@ export async function eggBody(token: Token) {
     });
   }
 
-  return await sharp(mask)
-    .tint(color)
+  const colored = await sharp(mask).tint(color).toBuffer();
+
+  return await sharp(colored)
     .composite(list)
     // .toFile(out)
     .toBuffer();

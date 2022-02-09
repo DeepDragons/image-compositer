@@ -11,7 +11,7 @@ import genes from './src/genes/test.json';
 
 (async function(){
   const genesList = Object.values(genes);
-  for (let index = 4000; index < genesList.length; index++) {
+  for (let index = 666; index < genesList.length; index++) {
     const gene = genesList[index];
     const t = new Token(gene, String(index));
     await generateAnEgg(t);

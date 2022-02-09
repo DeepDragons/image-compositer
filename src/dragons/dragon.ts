@@ -8,10 +8,12 @@ import { dragonHead } from './head';
 import { dragonBody } from './body';
 import { dragonTail } from './tail';
 import { dragonWings } from './wings';
+import { dragonAura } from './aura';
 
 export async function dragon(token: Token) {
-  const [paws, head, body, tail, wings] = await Promise.all([
+  const [aura, paws, head, body, tail, wings] = await Promise.all([
     // dragonSpots(token),
+    dragonAura(token),
     dragonPaws(token),
     dragonHead(token),
     dragonBody(token),
@@ -23,7 +25,14 @@ export async function dragon(token: Token) {
   const list = [];
   let instance = sharp(pawsR);
 
-  if (wings) {
+  if (aura) {
+    instance = sharp(aura);
+    if (wings) {
+      list.push({
+        input: wings
+      });
+    }
+  } else if (wings) {
     instance = sharp(wings);
     list.push({
       input: pawsR
