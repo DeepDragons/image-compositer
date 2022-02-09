@@ -1,5 +1,6 @@
 import type { KeyValue } from 'types/rpc';
 
+import BN from 'bn.js';
 import fetch from 'cross-fetch';
 import { RPCMethod } from '../configs/methods';
 import { HttpProvider } from '../lib/http-provider';
@@ -25,24 +26,24 @@ export class MainContract {
     return res.result[MainContract.fields.tokenGenImage];
   }
 
-  public async totalSupply(): Promise<string> {
+  public async totalSupply(): Promise<BN> {
     const req = this.#provider.buildBody(RPCMethod.GetSmartContractSubState, [
       this.#address,
       MainContract.fields.totalSupply,
       []
     ]);
     const [res] = await this.#send([req]);
-    return res.result[MainContract.fields.totalSupply];
+    return new BN(res.result[MainContract.fields.totalSupply]);
   }
 
-  public async tokenCount(): Promise<string> {
+  public async tokenCount(): Promise<BN> {
     const req = this.#provider.buildBody(RPCMethod.GetSmartContractSubState, [
       this.#address,
       MainContract.fields.tokenCount,
       []
     ]);
     const [res] = await this.#send([req]);
-    return res.result[MainContract.fields.tokenCount];
+    return new BN(res.result[MainContract.fields.tokenCount]);
   }
 
   async #send(batch: object[]) {
