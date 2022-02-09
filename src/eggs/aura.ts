@@ -19,6 +19,10 @@ export async function eggAura(token: Token) {
   return await sharp(mask)
     .linear(...LINEAR)
     .tint(color)
+    .modulate({
+      brightness: 100,
+      lightness: 100
+    })
     .composite([
       {
         input: shadow

@@ -16,11 +16,11 @@ import genes from './src/genes/test.json';
   // await generateAnEgg(t);
   // await dragon(t);
 
-  for (let index = 44; index < list.length; index++) {
+  for (let index = 654; index < list.length; index++) {
     const gene = list[index];
     const t = new Token(gene, String(index));
     await generateAnEgg(t);
-    await dragon(t);
+    // await dragon(t);
 
     // break;
   }
