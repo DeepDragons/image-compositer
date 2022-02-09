@@ -9,7 +9,6 @@ import { eggTails } from './tail';
 import { eggWings } from './wings';
 
 export async function generateAnEgg(token: Token) {
-  console.info("Start generate " + token.id);
   const [aura, body, tails, wings] = await Promise.all([
     eggAura(token),
     eggBody(token),
