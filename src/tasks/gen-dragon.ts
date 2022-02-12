@@ -3,14 +3,14 @@ import { parentPort } from 'worker_threads';
 
 import { Dragon } from '../models/dragon';
 import { initORM } from '../orm';
-import { generateAnEgg } from '../eggs';
+import { generateAdragon } from '../dragons';
 import { Token } from '../token';
 import { Events } from '../lib/queue';
 import { upload } from '../cloudinary/cloudinary';
 import rootConfig from '../configs/root';
 
 const log = bunyan.createLogger({
-  name: "EGGS_GEN"
+  name: "DRAGON_GEN"
 });
 
 log.info('Worker just have started.');
@@ -25,27 +25,27 @@ log.info('Worker just have started.');
     const orm = await initORM();
 
     parentPort.on('message', async (tokenId) => {
-      log.info(`Start generate egg ${tokenId}`);
-      const egg = await orm.em.findOne(Dragon, {
+      log.info(`Start generate dragon ${tokenId}`);
+      const dragon = await orm.em.findOne(Dragon, {
         tokenId
       });
 
-      if (!egg) {
+      if (!dragon) {
         log.error(`token with id ${tokenId} doesn't exists!`);
         return;
       }
 
       try {
-        egg.eggProcessing = true;
+        dragon.eggProcessing = true;
 
-        await orm.em.persistAndFlush(egg);
+        await orm.em.persistAndFlush(dragon);
   
-        const token = new Token(egg.face, egg.tokenId);
-        await generateAnEgg(token);
-        const url = await upload(tokenId, 0, rootConfig.namespase.eggs);
-        egg.eggProcessing = false;
-        egg.eggUrl = url;
-        await orm.em.persistAndFlush(egg);
+        const token = new Token(dragon.face, dragon.tokenId);
+        await generateAdragon(token);
+        const url = await upload(tokenId, 1, rootConfig.namespase.dragons);
+        dragon.dragonProcessing = false;
+        dragon.dragonUrl = url;
+        await orm.em.persistAndFlush(dragon);
         parentPort?.postMessage({
           event: Events.Remove,
           id: tokenId
@@ -53,9 +53,9 @@ log.info('Worker just have started.');
         log.info(`End generate egg ${tokenId}`);
       } catch (err) {
         log.error((err as Error).message);
-        egg.eggProcessing = false;
-        egg.eggUrl = undefined;
-        await orm.em.persistAndFlush(egg);
+        dragon.eggProcessing = false;
+        dragon.eggUrl = undefined;
+        await orm.em.persistAndFlush(dragon);
       }
     });
   } catch (err) {

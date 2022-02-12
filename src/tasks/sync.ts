@@ -14,19 +14,39 @@ const log = bunyan.createLogger({
 const one = BigInt(1);
 const main = new MainContract();
 const eggQueue = new Queue();
+const dragonQueue = new Queue();
 
 const eggThread = new Worker(path.join(__dirname, './egg-thread.js'));
+const dragonThread = new Worker(path.join(__dirname, './dragon-thread.js'));
 
 eggQueue.subscribe((id) => {
   eggThread.postMessage(id);
 });
+dragonQueue.subscribe((id) => {
+  dragonThread.postMessage(id);
+});
+
+dragonThread.on('message', function (data) {
+  if (data && data.event && data.event === Events.Remove) {
+    log.info(`Dragon ${data.id} was removed from dragon queue length is ${dragonQueue.list.length}`, dragonQueue.list);
+    dragonQueue.remove(BigInt(data.id));
+  }
+});
+dragonThread.on('error', function () {
+  dragonThread.terminate();
+});
+dragonThread.on('exit', (code) => {
+  if (code !== 0) dragonThread.terminate();
+  return dragonThread;
+});
+
 eggThread.on('message', function (data) {
   if (data && data.event && data.event === Events.Remove) {
-    log.info(`Egg ${data.id} was removed from eggQueue length is ${eggQueue.list.length}`);
+    log.info(`Egg ${data.id} was removed from eggQueue length is ${eggQueue.list.length}`, eggQueue.list);
     eggQueue.remove(BigInt(data.id));
   }
 });
-eggThread.on('error', function (error) {
+eggThread.on('error', function () {
   eggThread.terminate();
 });
 eggThread.on('exit', (code) => {
@@ -59,8 +79,9 @@ eggThread.on('exit', (code) => {
 
     for (const iterator of dragons) {
       eggQueue.add(BigInt(iterator.tokenId));
+      dragonQueue.add(BigInt(iterator.tokenId));
     }
-    log.info(`dragons added to eggQueue ${dragons.map((d) => d.tokenId).join(', ')}`);
+    log.info(`dragons added to egg queue ${dragons.map((d) => d.tokenId).join(', ')}`);
   } catch (err) {
     log.warn((err as Error).message);
   }

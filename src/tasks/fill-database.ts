@@ -22,4 +22,6 @@ const main = new MainContract();
   });
 
   await orm.em.persistAndFlush(list);
+
+  await orm.close();
 }());

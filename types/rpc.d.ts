@@ -3,7 +3,7 @@ export interface RPCBody {
   jsonrpc: string;
   method: string;
   params: Params;
-};
+}
 export type Params = TxParams[] | string[] | number[] | (string | string[] | number[])[];
 
 export interface KeyValue {
@@ -19,4 +19,4 @@ export interface RPCResponse {
     data: unknown;
     message: string;
   };
-};
+}

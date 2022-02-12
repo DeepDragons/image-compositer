@@ -10,7 +10,7 @@ import { dragonTail } from './tail';
 import { dragonWings } from './wings';
 import { dragonAura } from './aura';
 
-export async function dragon(token: Token) {
+export async function generateAdragon(token: Token) {
   const [aura, paws, head, body, tail, wings] = await Promise.all([
     // dragonSpots(token),
     dragonAura(token),

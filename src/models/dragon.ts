@@ -30,10 +30,10 @@ export class Dragon {
   eggUrl?: string;
 
   @Property()
-  eggProcessing: boolean = false;
+  eggProcessing = false;
 
   @Property()
-  dragonProcessing: boolean = false;
+  dragonProcessing = false;
 
   constructor(tokenId: string, face: string) {
     this.tokenId = tokenId;
