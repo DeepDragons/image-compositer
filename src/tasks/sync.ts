@@ -18,9 +18,8 @@ const queue = new Queue();
 
 const eggThread = new Worker(path.join(__dirname, './egg-thread.js'));
 
-eggThread.postMessage('2322');
-eggThread.postMessage('2323');
-eggThread.postMessage('2324');
+eggThread.postMessage('3016');
+
 eggThread.on('message', function (data) {
   console.log('In Message', data);
 });
