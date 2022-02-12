@@ -28,7 +28,7 @@ dragonQueue.subscribe((id) => {
 
 dragonThread.on('message', function (data) {
   if (data && data.event && data.event === Events.Remove) {
-    log.info(`Dragon ${data.id} was removed from dragon queue length is ${dragonQueue.list.length}`, dragonQueue.list);
+    log.info(`Dragon ${data.id} was removed from dragon queue length is ${dragonQueue.list.length}`);
     dragonQueue.remove(BigInt(data.id));
   }
 });
@@ -42,7 +42,7 @@ dragonThread.on('exit', (code) => {
 
 eggThread.on('message', function (data) {
   if (data && data.event && data.event === Events.Remove) {
-    log.info(`Egg ${data.id} was removed from eggQueue length is ${eggQueue.list.length}`, eggQueue.list);
+    log.info(`Egg ${data.id} was removed from eggQueue length is ${eggQueue.list.length}`);
     eggQueue.remove(BigInt(data.id));
   }
 });

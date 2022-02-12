@@ -27,7 +27,8 @@ log.info('Worker just have started.');
     parentPort.on('message', async (tokenId) => {
       log.info(`Start generate dragon ${tokenId}`);
       const dragon = await orm.em.findOne(Dragon, {
-        tokenId
+        tokenId,
+        dragonProcessing: false
       });
 
       if (!dragon) {
