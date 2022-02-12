@@ -12,7 +12,7 @@ export class MainContract {
     tokenUris: 'token_uris'
   };
 
-  #address = 'b4d83becb950c096b001a3d1c7abb10f571ae75f';
+  #address = process.env.CONTRACT;
   #http = 'https://api.zilliqa.com';
   #provider = new HttpProvider();
 
