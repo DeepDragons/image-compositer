@@ -1,10 +1,15 @@
 import type { Token } from '../token';
 
+import bunyan from 'bunyan';
 import sharp from 'sharp';
+
 import rootConfig from '../configs/root';
 import { LINEAR } from '../configs/color';
 
 const DIR_NAME = 'aura';
+const log = bunyan.createLogger({
+  name: "EGG_AURA"
+});
 
 export async function eggAura(token: Token) {
   if (token.genes.aura === 0) {
@@ -16,17 +21,22 @@ export async function eggAura(token: Token) {
   // const out = `${rootConfig.tmp}/${rootConfig.namespase.eggs}/${token.id}s.png`;
   const color = token.genes.colorAura;
 
-  return await sharp(mask)
-    .linear(...LINEAR)
-    .tint(color)
-    .modulate({
-      brightness: 100,
-      lightness: 100
-    })
-    .composite([
-      {
-        input: shadow
-      }
-    ])
-    .toBuffer();
+  try {
+    return await sharp(mask)
+      .linear(...LINEAR)
+      .tint(color)
+      .modulate({
+        brightness: 100,
+        lightness: 100
+      })
+      .composite([
+        {
+          input: shadow
+        }
+      ])
+      .toBuffer();
+  } catch (err) {
+    log.error(`${(err as Error).message}, id: ${token.id}, genes: ${token.genes.chain}, gene_number: ${token.genes.aura}, ${mask}`);
+    throw err;
+  }
 }
