@@ -13,6 +13,8 @@ const log = bunyan.createLogger({
   name: "EGGS_GEN"
 });
 
+log.info('Worker just have started.');
+
 (async function(){
   if (!parentPort) {
     log.error('tasks should be started as thread');
@@ -23,6 +25,7 @@ const log = bunyan.createLogger({
     const orm = await initORM();
 
     parentPort.on('message', async (tokenId) => {
+      log.info(`Start generate egg ${tokenId}`);
       const egg = await orm.em.findOne(Dragon, {
         tokenId
       });
@@ -47,6 +50,7 @@ const log = bunyan.createLogger({
           event: Events.Remove,
           id: tokenId
         });
+        log.info(`End generate egg ${tokenId}`);
       } catch (err) {
         log.error((err as Error).message);
         egg.eggProcessing = false;
@@ -55,7 +59,7 @@ const log = bunyan.createLogger({
       }
     });
   } catch (err) {
-    log.error(err);
+    log.error('Worker down by error: ', err);
     parentPort.close();
     process.exit(1);
   }

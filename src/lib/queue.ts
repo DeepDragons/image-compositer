@@ -1,6 +1,7 @@
 
 import EventEmitter from 'events';
 
+const LIMIT = 6;
 export enum Events {
   Next = 'NEXT',
   Remove = 'REMOVE'
@@ -15,7 +16,7 @@ export class Queue extends EventEmitter {
 
   public add(id: bigint) {
     this.#list.add(id);
-    if (this.#list.size === 1) {
+    if (this.#list.size < LIMIT) {
       this.emit(Events.Next, id);
     }
   }

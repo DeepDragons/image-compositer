@@ -13,17 +13,17 @@ const log = bunyan.createLogger({
 });
 const one = BigInt(1);
 const main = new MainContract();
-const queue = new Queue();
+const eggQueue = new Queue();
 
 const eggThread = new Worker(path.join(__dirname, './egg-thread.js'));
 
-queue.subscribe((id) => {
+eggQueue.subscribe((id) => {
   eggThread.postMessage(id);
 });
 eggThread.on('message', function (data) {
   if (data && data.event && data.event === Events.Remove) {
-    log.info(`Egg ${data.id} was removed from queue length is ${queue.list.length}`);
-    queue.remove(BigInt(data.id));
+    log.info(`Egg ${data.id} was removed from eggQueue length is ${eggQueue.list.length}`);
+    eggQueue.remove(BigInt(data.id));
   }
 });
 eggThread.on('error', function (error) {
@@ -58,9 +58,9 @@ eggThread.on('exit', (code) => {
     await orm.em.persistAndFlush(dragons);
 
     for (const iterator of dragons) {
-      queue.add(BigInt(iterator.tokenId));
+      eggQueue.add(BigInt(iterator.tokenId));
     }
-    log.info(`dragons added to queue ${dragons.map((d) => d.tokenId).join(', ')}`);
+    log.info(`dragons added to eggQueue ${dragons.map((d) => d.tokenId).join(', ')}`);
   } catch (err) {
     log.warn((err as Error).message);
   }
