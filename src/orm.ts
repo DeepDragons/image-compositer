@@ -7,7 +7,7 @@ export async function initORM() {
     entitiesTs: config.entitiesTs,
     type: 'sqlite',
     dbName: config.dbName,
-    debug: true,
+    debug: false,
     allowGlobalContext: true
   });
 }

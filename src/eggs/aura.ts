@@ -12,7 +12,8 @@ const log = bunyan.createLogger({
 });
 
 export async function eggAura(token: Token) {
-  if (token.genes.aura === 0) {
+  // TODO: Doesn't enough detials.
+  if (token.genes.aura === 0 || token.genes.aura > 4) {
     return;
   }
 

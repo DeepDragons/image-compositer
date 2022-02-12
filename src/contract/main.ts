@@ -8,7 +8,8 @@ export class MainContract {
   public static fields = {
     totalSupply: 'total_supply',
     tokenGenImage: 'token_gen_image',
-    tokenCount: 'token_id_count'
+    tokenCount: 'token_id_count',
+    tokenUris: 'token_uris'
   };
 
   #address = 'b4d83becb950c096b001a3d1c7abb10f571ae75f';
@@ -23,6 +24,16 @@ export class MainContract {
     ]);
     const [res] = await this.#send([req]);
     return res.result[MainContract.fields.tokenGenImage];
+  }
+
+  public async getUris(): Promise<KeyValue> {
+    const req = this.#provider.buildBody(RPCMethod.GetSmartContractSubState, [
+      this.#address,
+      MainContract.fields.tokenUris,
+      []
+    ]);
+    const [res] = await this.#send([req]);
+    return res.result[MainContract.fields.tokenUris];
   }
 
   public async totalSupply(): Promise<bigint> {

@@ -3,16 +3,23 @@ import { Dragon } from '../models/dragon';
 import { MainContract } from '../contract/main';
 import { initORM } from '../orm';
 
+const main = new MainContract();
 (async function() {
   const orm = await initORM();
-  const genes = await new MainContract().getAllFaces();
+  const genes = await main.getAllFaces();
+  const uris = await main.getUris();
   const list = Object.keys(genes).sort((a, b) => {
     if (new BN(a).gt(new BN(b))) {
       return 1;
     }
 
     return -1;
-  }).map((id) => new Dragon(id, genes[id]));
+  }).map((id) => {
+    const d = new Dragon(id, genes[id]);
+    d.dragonUrl = uris[id];
+
+    return d;
+  });
 
   await orm.em.persistAndFlush(list);
 }());

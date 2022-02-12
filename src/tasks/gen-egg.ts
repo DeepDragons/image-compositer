@@ -23,15 +23,16 @@ const log = bunyan.createLogger({
     const orm = await initORM();
 
     parentPort.on('message', async (tokenId) => {
-      try {
-        const egg = await orm.em.findOne(Dragon, {
-          tokenId
-        });
-  
-        if (!egg) {
-          throw new Error(`token with id ${tokenId} doesn't exists!`);
-        }
+      const egg = await orm.em.findOne(Dragon, {
+        tokenId
+      });
 
+      if (!egg) {
+        log.error(`token with id ${tokenId} doesn't exists!`);
+        return;
+      }
+
+      try {
         egg.eggProcessing = true;
 
         await orm.em.persistAndFlush(egg);
@@ -48,6 +49,9 @@ const log = bunyan.createLogger({
         });
       } catch (err) {
         log.error((err as Error).message);
+        egg.eggProcessing = false;
+        egg.eggUrl = undefined;
+        await orm.em.persistAndFlush(egg);
       }
     });
   } catch (err) {

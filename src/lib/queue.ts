@@ -15,17 +15,24 @@ export class Queue extends EventEmitter {
 
   public add(id: bigint) {
     this.#list.add(id);
-    this.emit(Events.Next, id);
+    if (this.#list.size === 1) {
+      this.emit(Events.Next, id);
+    }
   }
 
   public remove(id: bigint) {
-    this.#list.delete(id);
+    this.#list.delete(BigInt(id));
     this.emit(Events.Remove, id);
+
+    if (this.#list.size > 0) {
+      const nextId = this.list[this.list.length - 1];
+      this.emit(Events.Next, BigInt(nextId));
+    }
   }
 
   public subscribe(cb: (id: string) => void) {
-    this.on(Events.Next, (event) => {
-      console.log('event', event);
+    this.on(Events.Next, (id) => {
+      cb(String(id));
     });
   }
 }

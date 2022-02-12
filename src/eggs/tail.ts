@@ -11,7 +11,8 @@ const log = bunyan.createLogger({
 });
 
 export async function eggTails(token: Token) {
-  if (token.genes.tail === 0) {
+  // TODO: Doesn't enough detials.
+  if (token.genes.tail === 0 || token.genes.tail > 7) {
     return;
   }
 
