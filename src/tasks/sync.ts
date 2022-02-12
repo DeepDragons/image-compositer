@@ -19,6 +19,47 @@ const dragonQueue = new Queue();
 const eggThread = new Worker(path.join(__dirname, './egg-thread.js'));
 const dragonThread = new Worker(path.join(__dirname, './dragon-thread.js'));
 
+async function run(){
+  log.info('start sync task');
+  try {
+    const orm = await initORM();
+    const tokenCount = await main.tokenCount();
+    const last = await orm.em.count(Dragon);
+    const dragon = await orm.em.findOne(Dragon, last);
+    if (!dragon) throw new Error('last dragon not found');
+    const lastTokenId = BigInt(dragon.tokenId);
+    if (tokenCount <= lastTokenId) throw new Error('Skip wait for a new dragon.');
+    const ids = [];
+
+    for (let index = BigInt(lastTokenId) + one; index < tokenCount; index += one) {
+      ids.push(index);
+    }
+
+    log.info(`Added ${ids.length} new dragons!`);
+
+    const genes = await main.getDragons(ids);
+    const dragons = genes.map(({ id, chain }) => new Dragon(id, chain));
+
+    await orm.em.persistAndFlush(dragons);
+
+    for (const iterator of dragons) {
+      eggQueue.add(BigInt(iterator.tokenId));
+      dragonQueue.add(BigInt(iterator.tokenId));
+    }
+    log.info(`dragons added to egg queue ${dragons.map((d) => d.tokenId).join(', ')}`);
+  } catch (err) {
+    log.warn((err as Error).message);
+  }
+}
+
+setInterval(() => {
+  if (eggQueue.list.length === 0 && dragonQueue.list.length === 0) {
+    run();
+  }
+}, 10000);
+
+run();
+
 eggQueue.subscribe((id) => {
   eggThread.postMessage(id);
 });
@@ -53,36 +94,3 @@ eggThread.on('exit', (code) => {
   if (code !== 0) eggThread.terminate();
   return eggThread;
 });
-
-(async function (){
-  log.info('start sync task');
-  try {
-    const orm = await initORM();
-    const tokenCount = await main.tokenCount();
-    const last = await orm.em.count(Dragon);
-    const dragon = await orm.em.findOne(Dragon, last);
-    if (!dragon) throw new Error('last dragon not found');
-    const lastTokenId = BigInt(dragon.tokenId);
-    if (tokenCount <= lastTokenId) throw new Error('Skip wait for a new dragon.');
-    const ids = [];
-
-    for (let index = BigInt(lastTokenId) + one; index < tokenCount; index += one) {
-      ids.push(index);
-    }
-
-    log.info(`Added ${ids.length} new dragons!`);
-
-    const genes = await main.getDragons(ids);
-    const dragons = genes.map(({ id, chain }) => new Dragon(id, chain));
-
-    await orm.em.persistAndFlush(dragons);
-
-    for (const iterator of dragons) {
-      eggQueue.add(BigInt(iterator.tokenId));
-      dragonQueue.add(BigInt(iterator.tokenId));
-    }
-    log.info(`dragons added to egg queue ${dragons.map((d) => d.tokenId).join(', ')}`);
-  } catch (err) {
-    log.warn((err as Error).message);
-  }
-}());
