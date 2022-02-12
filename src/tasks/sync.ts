@@ -67,13 +67,13 @@ dragonQueue.subscribe((id) => {
   dragonThread.postMessage(id);
 });
 
-dragonThread.on('message', function (data) {
+dragonThread.on('message', (data) => {
   if (data && data.event && data.event === Events.Remove) {
     log.info(`Dragon ${data.id} was removed from dragon queue length is ${dragonQueue.list.length}`);
     dragonQueue.remove(BigInt(data.id));
   }
 });
-dragonThread.on('error', function () {
+dragonThread.on('error', () => {
   dragonThread.terminate();
 });
 dragonThread.on('exit', (code) => {
@@ -81,13 +81,13 @@ dragonThread.on('exit', (code) => {
   return dragonThread;
 });
 
-eggThread.on('message', function (data) {
+eggThread.on('message', (data) => {
   if (data && data.event && data.event === Events.Remove) {
     log.info(`Egg ${data.id} was removed from eggQueue length is ${eggQueue.list.length}`);
     eggQueue.remove(BigInt(data.id));
   }
 });
-eggThread.on('error', function () {
+eggThread.on('error', () => {
   eggThread.terminate();
 });
 eggThread.on('exit', (code) => {
