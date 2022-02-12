@@ -9,3 +9,14 @@ export type Params = TxParams[] | string[] | number[] | (string | string[] | num
 export interface KeyValue {
   [key: string]: string;
 }
+
+export interface RPCResponse {
+  id: number;
+  jsonrpc: string;
+  result?: any;
+  error?: {
+    code: number;
+    data: unknown;
+    message: string;
+  };
+};

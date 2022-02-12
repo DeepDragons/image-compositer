@@ -1,6 +1,5 @@
-import type { KeyValue } from 'types/rpc';
+import type { KeyValue, RPCResponse } from 'types/rpc';
 
-import BN from 'bn.js';
 import fetch from 'cross-fetch';
 import { RPCMethod } from '../configs/methods';
 import { HttpProvider } from '../lib/http-provider';
@@ -26,27 +25,44 @@ export class MainContract {
     return res.result[MainContract.fields.tokenGenImage];
   }
 
-  public async totalSupply(): Promise<BN> {
+  public async totalSupply(): Promise<bigint> {
     const req = this.#provider.buildBody(RPCMethod.GetSmartContractSubState, [
       this.#address,
       MainContract.fields.totalSupply,
       []
     ]);
     const [res] = await this.#send([req]);
-    return new BN(res.result[MainContract.fields.totalSupply]);
+    return BigInt(res.result[MainContract.fields.totalSupply]);
   }
 
-  public async tokenCount(): Promise<BN> {
+  public async getDragons(ids: bigint[]) {
+    const reqs = ids.map((id) => this.#provider.buildBody(RPCMethod.GetSmartContractSubState, [
+      this.#address,
+      MainContract.fields.tokenGenImage,
+      [String(id)]
+    ]));
+    const resList = await this.#send(reqs);
+    return resList.map((res, index) => {
+      const id = String(ids[index]);
+      const obj = res.result[MainContract.fields.tokenGenImage];
+      return {
+        id,
+        chain: obj[id]
+      };
+    });
+  }
+
+  public async tokenCount(): Promise<bigint> {
     const req = this.#provider.buildBody(RPCMethod.GetSmartContractSubState, [
       this.#address,
       MainContract.fields.tokenCount,
       []
     ]);
     const [res] = await this.#send([req]);
-    return new BN(res.result[MainContract.fields.tokenCount]);
+    return BigInt(res.result[MainContract.fields.tokenCount]);
   }
 
-  async #send(batch: object[]) {
+  async #send(batch: object[]): Promise<RPCResponse[]> {
     const res = await fetch(this.#http, {
       method: `POST`,
       headers: {
