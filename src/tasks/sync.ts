@@ -31,10 +31,10 @@ async function run(){
     const dragon = await orm.em.findOne(Dragon, last);
     if (!dragon) throw new Error('last dragon not found');
     const lastTokenId = BigInt(dragon.tokenId);
+    log.debug('lastTokenId:', lastTokenId, 'tokenCount:', tokenCount);
     if (tokenCount <= lastTokenId) throw new Error('Skip wait for a new dragon.');
     const ids = [];
 
-    log.debug('lastTokenId:', lastTokenId, 'tokenCount:', tokenCount);
 
     for (let index = BigInt(lastTokenId) + one; index < tokenCount; index += one) {
       ids.push(index);
