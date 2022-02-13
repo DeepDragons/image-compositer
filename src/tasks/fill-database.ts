@@ -2,6 +2,9 @@ import BN from 'bn.js';
 import { Dragon } from '../models/dragon';
 import { MainContract } from '../contract/main';
 import { initORM } from '../orm';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 const main = new MainContract();
 (async function() {
