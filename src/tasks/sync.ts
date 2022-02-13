@@ -29,10 +29,9 @@ async function run(){
     const tokenCount = await main.tokenCount();
     const last = await orm.em.count(Dragon);
     const dragon = await orm.em.findOne(Dragon, last);
-    console.log(dragon, last);
     if (!dragon) throw new Error('last dragon not found');
     const lastTokenId = BigInt(dragon.tokenId);
-    log.debug('lastTokenId:', lastTokenId, 'tokenCount:', tokenCount);
+    log.info('lastTokenId:', lastTokenId, 'tokenCount:', tokenCount);
     if (tokenCount <= lastTokenId) throw new Error('Skip wait for a new dragon.');
     const ids = [];
 
