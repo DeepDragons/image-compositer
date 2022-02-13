@@ -53,7 +53,7 @@ export class MainContract {
       [String(id)]
     ]));
     const resList = await this.#send(reqs);
-    console.log(resList);
+    console.log(resList, this.#address, reqs);
     return resList.map((res, index) => {
       const id = String(ids[index]);
       const obj = res.result[MainContract.fields.tokenGenImage];
