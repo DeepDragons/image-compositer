@@ -51,7 +51,7 @@ log.info('Worker just have started.');
           event: Events.Remove,
           id: tokenId
         });
-        log.info(`End generate egg ${tokenId}`);
+        log.info(`End generate dragon ${tokenId}`);
       } catch (err) {
         log.error((err as Error).message);
         dragon.eggProcessing = false;
