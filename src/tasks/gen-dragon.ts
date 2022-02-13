@@ -56,7 +56,7 @@ log.info('Worker just have started.');
         log.error((err as Error).message);
         dragon.eggProcessing = false;
         dragon.eggUrl = undefined;
-        await orm.em.persistAndFlush(dragon);
+        await orm.em.remove(dragon).flush();
       }
     });
   } catch (err) {
