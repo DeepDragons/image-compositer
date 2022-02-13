@@ -21,7 +21,7 @@
   },
   "scripts": {
     "lint": "npx eslint --fix . --ext .ts",
-    "start": "NODE_ENV=production ts-node ./index.ts | ./node_modules/.bin/bunyan",
+    "start": "NODE_ENV=production ts-node ./src/tasks/sync.ts | ./node_modules/.bin/bunyan",
     "sync": "NODE_ENV=production ts-node ./src/tasks/sync.ts | ./node_modules/.bin/bunyan",
     "migrate": "npx mikro-orm migration:up"
   },
