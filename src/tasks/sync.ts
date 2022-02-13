@@ -1,4 +1,5 @@
 
+import * as dotenv from 'dotenv';
 import bunyan from 'bunyan';
 import { Worker } from 'worker_threads';
 
@@ -7,6 +8,8 @@ import { initORM } from '../orm';
 import { MainContract } from '../contract/main';
 import { Queue, Events } from '../lib/queue';
 import path from 'path';
+
+dotenv.config();
 
 const log = bunyan.createLogger({
   name: "SYNC"
