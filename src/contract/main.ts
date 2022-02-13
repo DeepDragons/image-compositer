@@ -47,13 +47,15 @@ export class MainContract {
   }
 
   public async getDragons(ids: bigint[]) {
+    if (ids.length === 0) {
+      throw new Error('getDragons: no dragons for fech');
+    }
     const reqs = ids.map((id) => this.#provider.buildBody(RPCMethod.GetSmartContractSubState, [
       this.#address,
       MainContract.fields.tokenGenImage,
       [String(id)]
     ]));
     const resList = await this.#send(reqs);
-    console.log(resList, this.#address, reqs, ids);
     return resList.map((res, index) => {
       const id = String(ids[index]);
       const obj = res.result[MainContract.fields.tokenGenImage];
