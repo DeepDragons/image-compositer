@@ -1,1 +1,1 @@
-export const LINEAR = [0.8, 1];
+export const LINEAR = [0.5, 1];
