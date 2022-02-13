@@ -116,6 +116,6 @@ export class ZilGene {
   }
 }
 
-// const g = new ZilGene('77754714081813221346251000183');
+// const g = new ZilGene('77754714081815221349251000183');
 
-// console.log(g.chain);
+// console.log(g.tail);
