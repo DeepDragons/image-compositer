@@ -31,6 +31,7 @@
     "bn.js": "^5.2.0",
     "bunyan": "^1.8.15",
     "cloudinary": "^1.28.1",
+    "color": "^4.2.1",
     "cross-fetch": "^3.1.5",
     "dotenv": "^15.0.0",
     "sharp": "^0.30.0"

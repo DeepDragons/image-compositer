@@ -29,6 +29,8 @@ export async function upload(id: string, stage: number, namespase: string) {
     ]
   };
 
+  return '';
+
   const { url } = await cloudinary.uploader.upload(src, params);
 
   return url;
