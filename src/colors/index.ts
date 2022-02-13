@@ -12,6 +12,6 @@ export function getColor(commonColorScheme: number, numOfColorSchema: number) {
   const colors = colorScheme[commonColorScheme];
   let color = Color.rgb(colors[num]);
 
-  color = color.lightness(30);
+  color = color.lightness(50);
   return color.object();
 }
