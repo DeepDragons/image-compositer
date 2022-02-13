@@ -35,8 +35,7 @@ async function run(){
     if (tokenCount <= lastTokenId) throw new Error('Skip wait for a new dragon.');
     const ids = [];
 
-
-    for (let index = BigInt(lastTokenId) + one; index < tokenCount; index += one) {
+    for (let index = BigInt(lastTokenId); index < tokenCount; index += one) {
       ids.push(index);
     }
 
