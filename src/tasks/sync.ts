@@ -66,6 +66,8 @@ async function checkBrokenDragons() {
     limit: 10
   });
 
+  log.warn(`Dragons broken ${dragons.length}`);
+
   for (const dragon of dragons) {
     dragonQueue.add(BigInt(dragon.tokenId));
   }
@@ -80,6 +82,8 @@ async function checkBrokenEggs() {
   }, {
     limit: 10
   });
+
+  log.warn(`Eggs broken ${eggs.length}`);
 
   for (const egg of eggs) {
     eggQueue.add(BigInt(egg.tokenId));
