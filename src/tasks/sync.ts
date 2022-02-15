@@ -22,7 +22,7 @@ const dragonQueue = new Queue();
 const eggThread = new Worker(path.join(__dirname, './egg-thread.js'));
 const dragonThread = new Worker(path.join(__dirname, './dragon-thread.js'));
 
-async function run(){
+async function fillData(){
   log.info('start sync task');
   try {
     const orm = await initORM();
@@ -56,13 +56,48 @@ async function run(){
   }
 }
 
+async function checkBrokenDragons() {
+  const orm = await initORM();
+
+  const dragons = await orm.em.getRepository(Dragon).find({
+    dragonUrl: null,
+    dragonProcessing: false
+  }, {
+    limit: 10
+  });
+
+  for (const dragon of dragons) {
+    dragonQueue.add(BigInt(dragon.tokenId));
+  }
+}
+
+async function checkBrokenEggs() {
+  const orm = await initORM();
+
+  const eggs = await orm.em.getRepository(Dragon).find({
+    eggUrl: null,
+    eggProcessing: false
+  }, {
+    limit: 10
+  });
+
+  for (const egg of eggs) {
+    eggQueue.add(BigInt(egg.tokenId));
+  }
+}
+
 setInterval(() => {
   if (eggQueue.list.length === 0 && dragonQueue.list.length === 0) {
-    run();
+    fillData();
   }
+
+  checkBrokenDragons();
+  checkBrokenEggs();
 }, 10000);
 
-run();
+fillData();
+checkBrokenDragons();
+checkBrokenEggs();
 
 eggQueue.subscribe((id) => {
   eggThread.postMessage(id);

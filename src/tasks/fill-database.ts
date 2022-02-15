@@ -20,6 +20,7 @@ const main = new MainContract();
   }).map((id) => {
     const d = new Dragon(id, genes[id]);
     d.dragonUrl = uris[id];
+    d.eggUrl = uris[id];
 
     return d;
   });
