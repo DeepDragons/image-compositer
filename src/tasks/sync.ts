@@ -65,7 +65,7 @@ async function checkBrokenDragons() {
     dragonUrl: null,
     dragonProcessing: false
   }, {
-    limit: 10
+    limit: 3
   });
 
   log.warn(`Dragons broken ${dragons.length}`);
@@ -82,7 +82,7 @@ async function checkBrokenEggs() {
     eggUrl: null,
     eggProcessing: false
   }, {
-    limit: 10
+    limit: 3
   });
 
   log.warn(`Eggs broken ${eggs.length}`);
