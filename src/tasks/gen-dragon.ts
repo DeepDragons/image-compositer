@@ -37,7 +37,7 @@ log.info('Worker just have started.');
       }
 
       try {
-        dragon.eggProcessing = true;
+        dragon.dragonProcessing = true;
 
         await orm.em.persistAndFlush(dragon);
   
@@ -54,7 +54,7 @@ log.info('Worker just have started.');
         log.info(`End generate dragon ${tokenId}`);
       } catch (err) {
         log.error((err as Error).message);
-        dragon.eggProcessing = false;
+        dragon.dragonProcessing = false;
         dragon.eggUrl = undefined;
         await orm.em.remove(dragon).flush();
       }
