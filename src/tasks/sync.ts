@@ -21,6 +21,7 @@ const dragonQueue = new Queue();
 
 const eggThread = new Worker(path.join(__dirname, './egg-thread.js'));
 const dragonThread = new Worker(path.join(__dirname, './dragon-thread.js'));
+const serverThread = new Worker(path.join(__dirname, './server.js'));
 
 async function fillData(){
   log.info('start sync task');
@@ -59,6 +60,7 @@ async function fillData(){
 async function checkBrokenDragons() {
   const orm = await initORM();
 
+  // @ts-ignore
   const dragons = await orm.em.getRepository(Dragon).find({
     dragonUrl: null,
     dragonProcessing: false
