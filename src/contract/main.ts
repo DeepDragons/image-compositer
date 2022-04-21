@@ -64,7 +64,7 @@ export class MainContract {
         id,
         chain: obj[id]
       };
-    });
+    }).filter((t) => Boolean(t.chain));
   }
 
   public async tokenCount(): Promise<bigint> {
