@@ -32,6 +32,7 @@ async function fillData(){
     const dragon = await orm.em.findOne(Dragon, {
       id: last
     });
+    console.log(last);
     if (!dragon) throw new Error('last dragon not found');
     const lastTokenId = BigInt(dragon.tokenId);
     log.info('lastTokenId:', lastTokenId, 'tokenCount:', tokenCount);
