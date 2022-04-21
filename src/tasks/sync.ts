@@ -47,6 +47,8 @@ async function fillData(){
     const genes = await main.getDragons(ids);
     const dragons = genes.map(({ id, chain }) => new Dragon(id, chain));
 
+    console.log(dragons);
+
     await orm.em.persistAndFlush(dragons);
 
     for (const iterator of dragons) {
