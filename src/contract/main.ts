@@ -56,10 +56,10 @@ export class MainContract {
       [String(id)]
     ]));
     const resList = await this.#send(reqs);
-    return resList.filter((res) => Boolean(res.result)).map((res, index) => {
+    return resList.map((res, index) => {
       const id = String(ids[index]);
-      const obj = res.result[MainContract.fields.tokenGenImage];
-      console.log(id, obj, obj[id]);
+      const obj = res.result ? 
+        res.result[MainContract.fields.tokenGenImage] : null;
       return {
         id,
         chain: obj[id]
