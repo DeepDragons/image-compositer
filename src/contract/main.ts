@@ -59,7 +59,7 @@ export class MainContract {
     return resList.map((res, index) => {
       const id = String(ids[index]);
       const obj = res.result ? 
-        res.result[MainContract.fields.tokenGenImage] : null;
+        res.result[MainContract.fields.tokenGenImage] : { [id]: null };
       return {
         id,
         chain: obj[id]
