@@ -45,7 +45,6 @@ async function fillData(){
     log.info(`Added ${ids.length} new dragons!`);
 
     const genes = await main.getDragons(ids);
-    console.log(genes);
     const dragons = genes.map(({ id, chain }) => new Dragon(id, chain));
 
     await orm.em.persistAndFlush(dragons);
